@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@ page import="java.util.*" %>
+<%@ page import="com.electrogrid.model.*" %>
+<%@ page import="com.electrogrid.repository.*" %>
+
+<%
+UserRepository userrepository=new UserRepository();
+List<User> users= userrepository.getUsers();
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +19,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<script src="Components/user.js"></script>
+<script src="components/user.js"></script>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="CssFile.css">
@@ -35,19 +45,12 @@
 					</div>
 					<div class="col-sm-6">
 						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Users</span></a>
-<!-- 						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						 -->
 					</div>
 				</div>
 			</div>
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-<!-- 						<th> -->
-<!-- 							<span class="custom-checkbox"> -->
-<!-- 								<input type="checkbox" id="selectAll"> -->
-<!-- 								<label for="selectAll"></label> -->
-<!-- 							</span> -->
-<!-- 						</th> -->
 						<th>Name</th>
 						<th>NIC</th>
 						<th>Address</th>
@@ -58,110 +61,27 @@
 					</tr>
 				</thead>
 				<tbody>
+				
+				<%for (int recodeCount = 0; recodeCount < users.size();recodeCount++){ %>
+				<% User user = users.get(recodeCount); %>
+				
 					<tr>
-<!-- 						<td> -->
-<!-- 							<span class="custom-checkbox"> -->
-<!-- 								<input type="checkbox" id="checkbox1" name="options[]" value="1"> -->
-<!-- 								<label for="checkbox1"></label> -->
-<!-- 							</span> -->
-<!-- 						</td> -->
-						<td>Thomas Hardy</td>
-						<td> 982570590V </td>						
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-						<td>12400</td>
-						<td>thomashardy@mail.com</td>
-						<td>(171) 555-2222</td>
+<!-- 						<td> </td> -->
+						<td><%= user.getUser_name() %> </td>						
+						<td><%= user.getUser_nic() %> </td>						
+						<td><%= user.getUser_address() %> </td>						
+						<td><%= user.getUser_zip_code() %> </td>						
+						<td><%= user.getUser_email() %> </td>						
+						<td><%= user.getUser_contact_number() %> </td>						
+						
 						<td>
 							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 						</td>
 					</tr>
-					<tr>
-<!-- 						<td> -->
-<!-- 							<span class="custom-checkbox"> -->
-<!-- 								<input type="checkbox" id="checkbox2" name="options[]" value="1"> -->
-<!-- 								<label for="checkbox2"></label> -->
-<!-- 							</span> -->
-<!-- 						</td> -->
-						<td>Dominique Perrier</td>
-						<td> 982570590V </td>
-						<td>Obere Str. 57, Berlin, Germany</td>
-						<td>12400</td>
-						<td>dominiqueperrier@mail.com</td>
-						<td>(313) 555-5735</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-<!-- 						<td> -->
-<!-- 							<span class="custom-checkbox"> -->
-<!-- 								<input type="checkbox" id="checkbox3" name="options[]" value="1"> -->
-<!-- 								<label for="checkbox3"></label> -->
-<!-- 							</span> -->
-<!-- 						</td> -->
-						<td>Maria Anders</td>
-						<td> 982570590V </td>
-						<td>25, rue Lauriston, Paris, France</td>
-						<td>12400</td>
-						<td>mariaanders@mail.com</td>
-						<td>(503) 555-9931</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-<!-- 						<td> -->
-<!-- 							<span class="custom-checkbox"> -->
-<!-- 								<input type="checkbox" id="checkbox4" name="options[]" value="1"> -->
-<!-- 								<label for="checkbox4"></label> -->
-<!-- 							</span> -->
-<!-- 						</td> -->
-						<td>Fran Wilson</td>
-						<td> 982570590V </td>
-						<td>C/ Araquil, 67, Madrid, Spain</td>
-						<td>12400</td>
-						<td>franwilson@mail.com</td>
-						<td>(204) 619-5731</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>					
-					<tr>
-<!-- 						<td> -->
-<!-- 							<span class="custom-checkbox"> -->
-<!-- 								<input type="checkbox" id="checkbox5" name="options[]" value="1"> -->
-<!-- 								<label for="checkbox5"></label> -->
-<!-- 							</span> -->
-<!-- 						</td> -->
-						<td>Martin Blank</td>
-						<td> 982570590V </td>
-						<td>Via Monte Bianco 34, Turin, Italy</td>
-						<td>12400</td>
-						<td>martinblank@mail.com</td>
-						<td>(480) 631-2097</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr> 
+					<%} %>
 				</tbody>
 			</table>
-			<div class="clearfix">
-				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item active"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item "><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div>
 		</div>
 	</div>        
 </div>
