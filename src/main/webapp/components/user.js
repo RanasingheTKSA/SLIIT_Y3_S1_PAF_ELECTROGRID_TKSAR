@@ -149,3 +149,37 @@ function onItemEditComplete(response, status) {
 	}
 	$("#hidItemIDSave").val("");
 }
+
+
+//delete================================================================
+$(document).ready(function() {
+	$.ajax({
+		url: "UserServlet",
+		type: "POST",
+		cache: false,
+		success: function(dataResult){
+			$('#table').html(dataResult); 
+		}
+	});
+	$(document).on("click", ".delete", function() { 
+		var $ele = $(this).parent().parent();
+		$.ajax({
+			url: "UserServlet",
+			type: "POST",
+			cache: false,
+			data:{
+				id: $(this).attr("id")
+			},
+			success: function(dataResult){
+				var dataResult = JSON.parse(dataResult);
+				if(dataResult.statusCode==name){
+					$ele.fadeOut().remove();
+				}
+			}
+		});
+	});
+});
+
+
+
+

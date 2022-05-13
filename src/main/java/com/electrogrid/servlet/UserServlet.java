@@ -2,6 +2,9 @@ package com.electrogrid.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -24,6 +27,7 @@ public class UserServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    // get users list
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
@@ -55,6 +59,7 @@ public class UserServlet extends HttpServlet {
 	}
 
 
+	// add users
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		UserRepository userRepository = new UserRepository();
@@ -78,4 +83,33 @@ public class UserServlet extends HttpServlet {
 		response.getWriter().write(output);
 		}
 
+	//delete users
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		response.setContentType("text/html");
+	    PrintWriter pw = response.getWriter();
+		
+		String userId = request.getParameter("id");
+		
+	    try {
+	        //Class.forName("com.mysql.jdbc.Driver");
+	        //String user = "root";
+	        //String pass = "root";
+	        //String query = "delete from user_details where email=?";
+	        Connection con = DriverManager.getConnection("jdbc:mysql://locahost:3306/dbname", "root", "root");
+	        PreparedStatement ps = con.prepareStatement("DELETE FROM `electro_grid`.`user` WHERE (`id` = ?);");
+	        ps.setString(1, "name");
+
+	        int i = ps.executeUpdate();
+
+	        if(i > 0) {
+	            System.out.println("User successfully removed...");
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println(e);
+	    }
+	}
+	
+	
 }
