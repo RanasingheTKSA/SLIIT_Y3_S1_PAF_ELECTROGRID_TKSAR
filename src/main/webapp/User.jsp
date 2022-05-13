@@ -12,6 +12,8 @@
 <%
 	UserRepository userrepository=new UserRepository();
 	List<User> users= userrepository.getUsers();
+	
+	User userValueRow = new User();
 %>
 
     
@@ -55,7 +57,7 @@
 			<div class="table-title">
 				<div class="row">
 					<div class="col-sm-6">
-						<h2>Manage <b>Users</b></h2>
+						<h2>MANAGE <b>USERS</b></h2>
 					</div>
 					<div class="col-sm-6">
 						<a href="#addUserModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New User</span></a>												
@@ -78,6 +80,7 @@
 				
 				<%for (int recodeCount = 0; recodeCount < users.size();recodeCount++){ %>
 				<% User user = users.get(recodeCount); %>
+				<% userValueRow = user; %>
 				
  					<tr>						
 						<td><%= user.getUser_name() %> </td>
@@ -118,7 +121,7 @@
 		<div class="modal-content">
 			<form id="addformUser" name="addformUser">
 				<div class="modal-header">						
-					<h4 class="modal-title">Add User</h4>
+					<h4 class="modal-title">ADD USER</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
@@ -132,7 +135,7 @@
 					</div>					
 					<div class="form-group">
 						<label>Address</label>
-						<textarea class="form-control" id = "address" name = "address" required></textarea>
+						<input class="form-control" id = "address" name = "address" required>
 					</div>
 					<div class="form-group">
 						<label>Zip Code</label>
@@ -144,17 +147,18 @@
 					</div>
 					<div class="form-group">
 						<label>Phone</label>
-						<input type="number" class="form-control" id = "phone" name = "phone" required>
+						<input type="text" class="form-control" id = "phone" name = "phone" required>
 					</div>
 										
 				</div>
+				<div id="alertSuccess" class="alert alert-success"></div>
+				<div id="alertError" class="alert alert-danger"></div>
+				
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 					<input type="submit" class="btn btn-success" id = "addUser" name = "addUser" value="Add">
 				</div>
 			</form>
-			<div id="alertSuccess" class="alert alert-success"></div>
-			<div id="alertError" class="alert alert-danger"></div>
 		</div>
 	</div>
 </div>
@@ -166,38 +170,42 @@
 		<div class="modal-content">
 			<form id="editformUser" name="editformUser">
 				<div class="modal-header">						
-					<h4 class="modal-title">Edit User</h4>
+					<h4 class="modal-title">EDIT USER</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
+				<input id="uId" name="uId" value= <%= userValueRow.getId()%> type ="hidden">
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
-						<input type="text" class="form-control" required>
+						<input type="text" id = "ename" name = "ename" value= <%= userValueRow.getUser_name()%> class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label>NIC</label>
-						<input type="text" class="form-control" required>
+						<input type="text" id = "enic" name = "enic" value= <%= userValueRow.getUser_nic()%> class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label>Address</label>
-						<textarea class="form-control" required></textarea>
+						<input type = "text" class="form-control" id = "eaddress" value= <%= userValueRow.getUser_address()%> name = "eaddress"  required>
 					</div>
 					<div class="form-group">
 						<label>ZIP Code</label>
-						<input type="text" class="form-control" required>
+						<input type="text" id = "ezipcode" name = "ezipcode" value= <%= userValueRow.getUser_zip_code()%> class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label>Email</label>
-						<input type="email" class="form-control" required>
+						<input type="email" id = "eemail" name = "eemail" value= <%= userValueRow.getUser_email()%> class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label>Phone</label>
-						<input type="number" class="form-control" required>
+						<input type="text" id = "ephone" name = "ephone" value= <%= userValueRow.getUser_contact_number()%> class="form-control" required>
 					</div>				
 				</div>
+				<div id="editSuccess" class="edit alert-success"></div>
+				<div id="editError" class="edit alert-danger"></div>
+				
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-info" value="Save">
+					<input type="submit" id = "esave" name = "esave" class="btn btn-info" value="Save">
 				</div>
 			</form>
 		</div>

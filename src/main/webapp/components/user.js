@@ -76,3 +76,76 @@ function onItemSaveComplete(response, status) {
 	$("#formItem")[0].reset();
 }
 
+
+// Edit ============================================
+function validateEditForm() {
+	if ($("#ename").val().trim() == "") {
+		return "Insert Name.";
+	}
+	if ($("#enic").val().trim() == "") {
+		return "Insert NIC.";
+	}
+	if ($("#eaddress").val().trim() == "") {
+		return "Insert Address.";
+	}
+	if ($("#ezipcode").val().trim() == "") {
+		return "Insert Zip Code.";
+	}
+	if ($("#eemail").val().trim() == "" || !emailValidation.test($("#email").val())){
+		return "Insert Valide Email";
+	}
+	if ($("#ephone").val().trim() == "" || !phoneValidation.test($("#phone").val())) {
+		return "Insert Valied Contact Number.";
+	}
+	
+	return true;
+}
+
+$(document).on("click", "#esave", function(event) {
+	// Clear alerts---------------------
+	$("#editSuccess").text("");
+	$("#editSuccess").hide();
+	$("#editError").text("");
+	$("#editError").hide();
+
+	// Form validation-------------------
+	var status = validateEditForm();
+
+	if (status != true) {
+		$("#editError").text(status);
+		$("#editError").show();
+		return;
+	}
+
+	$.ajax({
+		url : "UserServlet",
+		type : "PUT",
+		data : $("#editformUser").serialize(),
+		dataType : "text",
+		complete : function(response, status) {
+			onItemEditComplete(response.responseText, status);
+		}
+	});
+});
+
+
+function onItemEditComplete(response, status) {
+	if (status == "success") {
+		var resultSet = JSON.parse(response);
+		if (resultSet.status.trim() == "success") {
+			$("#editSuccess").text("Successfully saved.");
+			$("#editSuccess").show();
+			$("#divItemsGrid").html(resultSet.data);
+		} else if (resultSet.status.trim() == "error") {
+			$("#editError").text(resultSet.data);
+			$("#editError").show();
+		}	
+	} else if (status == "error") {
+		$("#editError").text("Error while saving.");
+		$("#editError").show();
+	} else {
+		$("#editError").text("Unknown error while saving..");
+		$("#editError").show();
+	}
+	$("#hidItemIDSave").val("");
+}

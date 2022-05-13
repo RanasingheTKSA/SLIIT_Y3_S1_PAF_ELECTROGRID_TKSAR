@@ -82,11 +82,11 @@ public class UserRepository {
 	}
 	
 	//add new users for the data base
-	public void addUser(User user) {
+	public String addUser(User user) {
 		String sql = "insert into user value (?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-						
+			
 			preparedStatement.setInt(1, user.getId());
 			preparedStatement.setString(2, user.getUser_name());
 			preparedStatement.setString(3, user.getUser_nic());
@@ -96,10 +96,13 @@ public class UserRepository {
 			preparedStatement.setString(7, user.getUser_email());
 			
 			preparedStatement.executeUpdate();
+			return "successfull";
 			
 		} catch (Exception e) {
 			System.out.println(e);
+			return "unsuccessfull";
 		}
+		
 	}
 
 	// update user details

@@ -56,8 +56,26 @@ public class UserServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+	
+		UserRepository userRepository = new UserRepository();
+		User users = new User();
+		
+		String name = request.getParameter("name");
+		String nic = request.getParameter("nic");
+		String address = request.getParameter("address");
+		String zipcode = request.getParameter("zipcode");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+
+		users.setUser_name(name);
+		users.setUser_nic(nic);
+		users.setUser_address(address);
+		users.setUser_zip_code(zipcode);
+		users.setUser_email(email);
+		users.setUser_contact_number(phone);
+
+		String output = userRepository.addUser(users);
+		response.getWriter().write(output);
+		}
 
 }
