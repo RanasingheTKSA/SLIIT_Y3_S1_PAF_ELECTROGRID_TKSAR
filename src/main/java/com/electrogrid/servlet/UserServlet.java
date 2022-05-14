@@ -96,7 +96,7 @@ public class UserServlet extends HttpServlet {
 	        //String user = "root";
 	        //String pass = "root";
 	        //String query = "delete from user_details where email=?";
-	        Connection con = DriverManager.getConnection("jdbc:mysql://locahost:3306/dbname", "root", "root");
+	        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/electro_grid", "root", "root");
 	        PreparedStatement ps = con.prepareStatement("DELETE FROM `electro_grid`.`user` WHERE (`id` = ?);");
 	        ps.setString(1, "name");
 

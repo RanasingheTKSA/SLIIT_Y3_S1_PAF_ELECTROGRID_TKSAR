@@ -155,7 +155,7 @@ function onItemEditComplete(response, status) {
 $(document).ready(function() {
 	$.ajax({
 		url: "UserServlet",
-		type: "POST",
+		type: "DELETE",
 		cache: false,
 		success: function(dataResult){
 			$('#table').html(dataResult); 
@@ -165,7 +165,7 @@ $(document).ready(function() {
 		var $ele = $(this).parent().parent();
 		$.ajax({
 			url: "UserServlet",
-			type: "POST",
+			type: "DELETE",
 			cache: false,
 			data:{
 				id: $(this).attr("id")
