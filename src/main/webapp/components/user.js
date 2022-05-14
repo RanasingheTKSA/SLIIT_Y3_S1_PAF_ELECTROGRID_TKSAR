@@ -156,10 +156,15 @@ $(document).ready(function() {
 	$.ajax({
 		url: "UserServlet",
 		type: "DELETE",
+		data : $("#data").serialize(),
 		cache: false,
-		success: function(dataResult){
-			$('#table').html(dataResult); 
+		complete : function(response, status) {
+			onItemEditComplete(response.responseText, status);
 		}
+		//success: function(dataResult){
+			//$('#data : $("#editformUser").serialize(),').html(dataResult); 
+			//onItemSaveComplete(response.responseText, status);
+		//}
 	});
 	$(document).on("click", ".delete", function() { 
 		var $ele = $(this).parent().parent();
